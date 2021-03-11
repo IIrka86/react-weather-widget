@@ -1,7 +1,7 @@
 const path = require("path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const APP_DIR = path.resolve(__dirname, './src');
 
@@ -40,8 +40,11 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-        chunks: 'all'
+      chunks: 'all'
     }
+  },
+  devServer: {
+    port: 4200,
   },
   plugins: [
     new HtmlWebpackPlugin({
