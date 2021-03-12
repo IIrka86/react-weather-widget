@@ -6,6 +6,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const APP_DIR = path.resolve(__dirname, './src');
 
 module.exports = {
+  devtool: "inline-source-map",
   entry: {
     bundle: APP_DIR + "/index.tsx"
   },
@@ -16,7 +17,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.json', '.jsx', '.tsx', '.ts'],
     alias: {
-      '@': APP_DIR
+      '@': path.resolve(__dirname, 'src')
     }
   },
   module: {

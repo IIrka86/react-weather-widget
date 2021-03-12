@@ -1,0 +1,147 @@
+{
+  "city": {
+    "id": 2643743,
+    "name": "London",
+    "country": "GB",
+    "timezone": 3600
+  },
+  "cnt": 8,
+  "list": [
+    {
+      "dt": 1615576380336,
+      "temp": {
+        "min": 288.85,
+        "max": 294.47
+      },
+      "humidity": 42,
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "sky is clear",
+          "icon": "01d"
+        }
+      ],
+      "speed": 4.66
+    },
+    {
+      "dt": 1615662780336,
+      "temp": {
+        "min": 287.85,
+        "max": 292.47
+      },
+      "humidity": 42,
+      "weather": [
+        {
+          "id": 801,
+          "main": "Clouds",
+          "description": "few clouds: 11-25%",
+          "icon": "02d"
+        }
+      ],
+      "speed": 4.66
+    },
+    {
+      "dt": 1615749180336,
+      "temp": {
+        "min": 288.85,
+        "max": 294.47
+      },
+      "humidity": 42,
+      "weather": [
+        {
+          "id": 801,
+          "main": "Clouds",
+          "description": "few clouds: 11-25%",
+          "icon": "02d"
+        }
+      ],
+      "speed": 4.66
+    },
+    {
+      "dt": 1615835580336,
+      "temp": {
+        "min": 286.85,
+        "max": 293.47
+      },
+      "humidity": 42,
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "scattered clouds: 25-50%",
+          "icon": "03d"
+        }
+      ],
+      "speed": 4.66
+    },
+    {
+      "dt": 1615921980336,
+      "temp": {
+        "min": 287.85,
+        "max": 294.47
+      },
+      "humidity": 42,
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "scattered clouds: 25-50%",
+          "icon": "03d"
+        }
+      ],
+      "speed": 4.66
+    },
+    {
+      "dt": 1616008380336,
+      "temp": {
+        "min": 288.85,
+        "max": 293.47
+      },
+      "humidity": 42,
+      "weather": [
+        {
+          "id": 801,
+          "main": "Clouds",
+          "description": "few clouds: 11-25%",
+          "icon": "02d"
+        }
+      ],
+      "speed": 4.66
+    },
+    {
+      "dt": 1616094780336,
+      "temp": {
+        "min": 289.85,
+        "max": 296.47
+      },
+      "humidity": 42,
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "sky is clear",
+          "icon": "01d"
+        }
+      ],
+      "speed": 4.66
+    },
+    {
+      "dt": 1616181180336,
+      "temp": {
+        "min": 290.85,
+        "max": 297.47
+      },
+      "humidity": 42,
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "sky is clear",
+          "icon": "01d"
+        }
+      ],
+      "speed": 4.66
+    }
+  ]
+}
