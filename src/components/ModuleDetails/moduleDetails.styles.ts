@@ -29,6 +29,23 @@ export default makeStyles({
     fontWeight: 700,
     fontSize: 44,
     lineHeight: '52px',
+    minWidth: 68,
+  },
+  typeWrapper: {
+    display: 'flex',
+    fontSize: 14,
+    lineHeight: '16px',
+    minHeight: '52px',
+    paddingTop: '12px',
+    paddingLeft: '6px',
+  },
+  unselectedType: {
+    color: '#888888',
+    cursor: 'pointer',
+  },
+  selectedType: {
+    textDecoration: 'underline',
+    color: '#222222',
   },
   weatherInfo: {
     display: 'flex',

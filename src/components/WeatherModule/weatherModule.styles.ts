@@ -22,4 +22,10 @@ export default makeStyles({
     alignItems: 'flex-start',
     padding: 0,
   },
+  loading: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '300px',
+  },
 });
