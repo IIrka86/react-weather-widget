@@ -4,8 +4,9 @@ import React, {
   memo, useCallback, useMemo, VFC,
 } from 'react';
 import textKeys from '@/constants/textKey';
-import { DayInfo } from '@/interfaces/daysInfoResponse';
+import { DayInfo } from '@/interfaces/dailyWeatherResponse';
 import { ShortWeekDay } from '@/constants/weekDay';
+import apiUrl from '@/constants/apiUrl';
 import useStyles from './moduleDaysItem.styles';
 
 interface ModuleDaysItemProps {
@@ -24,7 +25,7 @@ const ModuleDaysItem: VFC<ModuleDaysItemProps> = ({
   const classes = useStyles();
 
   const getDay = useMemo(() => {
-    const date = new Date(dayInfo.dt);
+    const date = new Date(dayInfo.dt * 1000);
     return ShortWeekDay[date.getDay()];
   }, [dayInfo.dt]);
 
@@ -44,8 +45,8 @@ const ModuleDaysItem: VFC<ModuleDaysItemProps> = ({
       <Typography className={classes.dayName}>{getDay}</Typography>
       <Box className={classes.iconWrapper}>
         <img
-          alt="icon"
-          src={`http://openweathermap.org/img/wn/${dayInfo.weather[0].icon}.png`}
+          alt={`icon${dayInfo.weather[0].icon}`}
+          src={`${apiUrl.ICON_URL}${dayInfo.weather[0].icon}.png`}
           className={classes.icon}
         />
       </Box>

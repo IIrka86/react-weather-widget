@@ -1,46 +1,60 @@
 import { Box, IconButton, InputBase } from '@material-ui/core';
 import React, {
-  useCallback, useEffect, useState,
+  useCallback, useEffect, useState, VFC,
 } from 'react';
 import './index.css';
 import Close from '@material-ui/icons/Close';
 import textKeys from '@/constants/textKey';
-import { DayInfo } from '@/interfaces/daysInfoResponse';
-import WhetherModule from './components/WeatherModule';
+import WhetherModule from '@/components/WeatherModule';
+import useDebounce from '@/hooks/useDebounce';
+import { loadCurrentWeather } from '@/api/apiCalls';
+import { Coordinates, CurrentWeatherResponse } from '@/interfaces/currentWeatherResponse';
 import useStyles from './App.styles';
-import useDebounce from './hooks/useDebounce';
-import mockResponse from './mock.json';
-import useDConverter from './hooks/useConverter';
 
-function App() {
+const App: VFC = () => {
   const classes = useStyles();
-  const [inputValue, setValue] = useState<string>('');
-  const [daysInfo, setDaysInfo] = useState<DayInfo[]>([] as DayInfo[]);
+  const [cityName, setCityName] = useState<string>('');
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const [isError, setError] = useState<boolean>(false);
+  const [errorText, setErrorText] = useState<string>('');
+  const [coordinates, setCoordinates] = useState<Coordinates>({} as Coordinates);
+  const [location, setLocation] = useState<string>('');
 
-  const debouncedValue = useDebounce(inputValue, 1000);
+  const debouncedValue: string = useDebounce(cityName, 1000);
 
-  const convertedDaysInfo = useDConverter(daysInfo);
-
-  useEffect(() => {
-    setDaysInfo(mockResponse.list);
+  const defineErrorText = useCallback((status) => {
+    switch (status) {
+      case 404:
+        return textKeys.ERROR_WRONG_CITY_NAME;
+      case 401:
+        return textKeys.ERROR_ACCESS_DENIED;
+      default:
+        return textKeys.ERROR;
+    }
   }, []);
 
   useEffect(() => {
-    // fetch(
-    //   `http://api.openweathermap.org/data/2.5/forecast/daily?q=${debouncedValue}&cnt=8&appid=828b8df00aee04ab2dac27e5bd19e6dc`
-    // ).then((response) => {
-    //   console.log(response);
-    // }).catch((error) => {
-    //   console.log(error);
-    // });
-  }, [debouncedValue]);
+    setError(false);
+    if (debouncedValue) {
+      loadCurrentWeather(debouncedValue).then((data: CurrentWeatherResponse) => {
+        setCoordinates(data.coord);
+        setLocation(`${data.name}, ${data.sys.country}`);
+      }).catch((status) => {
+        setError(true);
+        setErrorText(defineErrorText(status));
+      }).finally(() => {
+        setLoading(false);
+      });
+    }
+  }, [debouncedValue, defineErrorText]);
 
   const handleCityChange = useCallback(({ target: { value } }) => {
-    setValue(value);
+    setLoading(true);
+    setCityName(value.trim());
   }, []);
 
   const handleClearClick = useCallback(() => {
-    setValue('');
+    setCityName('');
   }, []);
 
   return (
@@ -48,8 +62,8 @@ function App() {
       <Box className={classes.searchBox}>
         <InputBase
           className={classes.searchInput}
-          placeholder={textKeys.ENTER_CITY_NAME}
-          value={inputValue}
+          placeholder={textKeys.ENTER_CITY}
+          value={cityName}
           onChange={handleCityChange}
         />
         <IconButton
@@ -59,9 +73,24 @@ function App() {
           <Close />
         </IconButton>
       </Box>
-      <WhetherModule daysInfo={convertedDaysInfo} />
+      {debouncedValue
+        ? (
+          <>
+            {isLoading
+              ? <Box className={classes.centeredText}>{textKeys.LOADING}</Box>
+              : (
+                <WhetherModule
+                  location={location}
+                  coordinates={coordinates}
+                  error={isError}
+                  errorText={errorText}
+                />
+              )}
+          </>
+        )
+        : <Box className={classes.centeredText}>{textKeys.WELCOME_TEXT}</Box>}
     </Box>
   );
-}
+};
 
 export default App;
